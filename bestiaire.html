@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bestiaire</title>
+
+
+
+    <style>
+        body{
+            background-color: #333;
+            border: white solid 1px;
+        }
+
+        nav{
+            border: green solid 1px;
+        }
+
+        #navFilter {
+            top: 50px;
+            position: relative;
+            float: left;
+            right: 450px;
+            width: 500px;
+            height: 400px;
+            z-index: 1;
+            transition: 0.5s;
+
+            background-color: #555;
+            border: red solid 1px;
+        }
+
+        .navVisible {
+            transform: translate(450px, 0);
+        }
+
+        #filterButton{
+            float: right;
+            border: red solid 1px;
+            height: 50px;
+            width: 50px;
+        }
+
+        #bestList{
+            background-color: #444;
+
+            text-align: center;
+
+            position: relative;
+            bottom: 300px;
+            left: 10%;
+            width: 80%;
+            clear: left;
+
+            padding-top: 5px;
+
+            border: blue solid 1px;
+        }
+
+        .imgBestList {
+            width: 19%;
+            height: 250px;
+            margin-left: 2px;
+            margin-right: 2px;
+            margin-bottom: 4px;
+            object-fit: cover;
+
+            border: violet solid 1px;
+        }
+
+        .imgBestList:hover {
+            z-index: 1;
+            filter: blur(2px) brightness(70%);
+            transition: 0.3s;
+        }
+    </style>
+
+
+
+</head>
+<body>
+    <nav><p>Navbar de Patpat</p></nav>
+
+
+    <div id="navFilter">
+        <span onclick="navOpen()" id="filterButton">Filtrer</span>
+        <p>Territoire</p>
+        <input type="checkbox" name="territoire"><label for="necrolimbe">Nécrolimbe</label>
+        <input type="checkbox" name="territoire"><label for="liurna">Liurna</label>
+        <input type="checkbox" name="territoire"><label for="caelid">Caelid</label>
+        <input type="checkbox" name="territoire"><label for="atlus">Atlus</label>
+        <input type="checkbox" name="territoire"><label for="farumAzula">Farum Azula</label>
+        <p>Dangerosité</p>
+        <input type="radio" name="dangerosité"><label for="veryLow">Victime</label>
+        <input type="radio" name="dangerosité"><label for="low">Peu agressif</label>
+        <input type="radio" name="dangerosité"><label for="med">Agressif</label>
+        <input type="radio" name="dangerosité"><label for="high">Mortel</label>
+        <p>Population</p>
+        <input type="radio" name="population"><label for="extinct">Éteinte</label>
+        <input type="radio" name="population"><label for="some">Peu abondante</label>
+        <input type="radio" name="population"><label for="many">Abondante</label>
+        <p>Mode de vie</p>
+        <input type="checkbox" name="lifestyle"><label for="a">A</label>
+        <input type="checkbox" name="lifestyle"><label for="b">B</label>
+        <input type="checkbox" name="lifestyle"><label for="c">C</label>
+        <p>Envergure</p>
+        <input type="radio" name="size"><label for="small">Petit</label>
+        <input type="radio" name="size"><label for="average">Moyen</label>
+        <input type="radio" name="size"><label for="big">Grand</label>
+    </div>
+
+    
+    <div id="bestList">
+        <img src="https://static.zerochan.net/Cross-Over.full.2362479.jpg" class="imgBestList">
+        <img src="https://static.zerochan.net/Bloodborne.full.2520002.jpg" class="imgBestList">
+        <img src="https://static.zerochan.net/Bloodborne.full.2615668.png" class="imgBestList">
+        <img src="https://static.zerochan.net/Bloodborne.full.2615668.png" class="imgBestList">
+        <img src="https://static.zerochan.net/Bloodborne.full.2615668.png" class="imgBestList">
+        <img src="https://static.zerochan.net/Bloodborne.full.2615668.png" class="imgBestList">
+        <img src="https://static.zerochan.net/Bloodborne.full.2615668.png" class="imgBestList">
+        <img src="https://static.zerochan.net/Bloodborne.full.2615668.png" class="imgBestList">
+        <img src="https://static.zerochan.net/Bloodborne.full.2615668.png" class="imgBestList">
+    </div>
+
+
+
+
+<script>
+        const openFilter = document.getElementById("navFilter");
+
+    function navOpen(){
+        openFilter.classList.toggle("navVisible");
+        }
+        
+</script>
+</body>
+</html>
