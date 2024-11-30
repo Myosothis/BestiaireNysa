@@ -8,71 +8,117 @@
 
 
     <style>
-        body{
-            background-color: #333;
+        body {
+            background: linear-gradient(to right, #71AC98, #8DD5A9);
             border: white solid 1px;
         }
 
-        nav{
+        nav {
             border: green solid 1px;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 64px;
+            font-family: dazzle-unicase;
         }
 
         #navFilter {
             top: 50px;
-            position: relative;
+            position: fixed;
             float: left;
-            right: 450px;
+            top: 10%;
+            left: -440px;
             width: 500px;
             height: 400px;
             z-index: 1;
             transition: 0.5s;
-
-            background-color: #555;
-            border: red solid 1px;
+            background-color: #548387;
+            border: #375B64 solid 2px;
+            border-radius: 5px;
         }
 
         .navVisible {
             transform: translate(450px, 0);
         }
 
-        #filterButton{
+        #filterButton {
             float: right;
             border: red solid 1px;
             height: 50px;
             width: 50px;
         }
 
-        #bestList{
+        #bestList {
             background-color: #444;
-
-            text-align: center;
-
-            position: relative;
-            bottom: 300px;
-            left: 10%;
+            margin: 10% auto;
             width: 80%;
-            clear: left;
-
             padding-top: 5px;
-
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
             border: blue solid 1px;
         }
 
-        .imgBestList {
+        #bestList > div {
             width: 19%;
             height: 250px;
-            margin-left: 2px;
-            margin-right: 2px;
-            margin-bottom: 4px;
-            object-fit: cover;
-
+            margin: 0 2px 4px 2px;
             border: violet solid 1px;
+            text-align: center;
         }
 
-        .imgBestList:hover {
-            z-index: 1;
+        #bestList > div > img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: relative;
+            text-align: center;
+        }
+        
+        #bestList > div > h4, 
+        #bestList > div > p, 
+        #bestList > div > button {
+            color: white;
+            position: relative;
+            bottom: 200px;
+            opacity: 0;
+            transition: 0.3s;
+        }
+
+        #bestList > div > button {
+            margin-top: 30px;
+            padding: 5px 10px;
+            background-color: #548387;
+            border: 1px solid #375B64;
+            border-radius: 10px;
+        }
+
+        #bestList > div > button:hover {
+            background-color: #375B64;
+        }
+        
+        #bestList > div:hover > h4, 
+        #bestList > div:hover > p, 
+        #bestList > div:hover > button {
+            opacity: 1;
+        }
+
+        #bestList > div:hover > img {
             filter: blur(2px) brightness(70%);
             transition: 0.3s;
+        }
+
+        #bestList > div > div {
+            height: 70%;
+            width: 70%;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            background-color: #375B64;
+            opacity: 0;
+            z-index: -2;
         }
     </style>
 
@@ -82,7 +128,7 @@
 <body>
     <nav><p>Navbar de Patpat</p></nav>
 
-
+    <h1>Bestiaire</h1>
     <div id="navFilter">
         <span onclick="navOpen()" id="filterButton">Filtrer</span>
         <p>Territoire</p>
@@ -92,35 +138,36 @@
         <input type="checkbox" name="territoire"><label for="atlus">Atlus</label>
         <input type="checkbox" name="territoire"><label for="farumAzula">Farum Azula</label>
         <p>Dangerosité</p>
-        <input type="radio" name="dangerosité"><label for="veryLow">Victime</label>
-        <input type="radio" name="dangerosité"><label for="low">Peu agressif</label>
-        <input type="radio" name="dangerosité"><label for="med">Agressif</label>
-        <input type="radio" name="dangerosité"><label for="high">Mortel</label>
+        <input type="checkbox" name="dangerosité"><label for="veryLow">Victime</label>
+        <input type="checkbox" name="dangerosité"><label for="low">Peu agressif</label>
+        <input type="checkbox" name="dangerosité"><label for="med">Agressif</label>
+        <input type="checkbox" name="dangerosité"><label for="high">Mortel</label>
         <p>Population</p>
-        <input type="radio" name="population"><label for="extinct">Éteinte</label>
-        <input type="radio" name="population"><label for="some">Peu abondante</label>
-        <input type="radio" name="population"><label for="many">Abondante</label>
+        <input type="checkbox" name="population"><label for="extinct">Éteinte</label>
+        <input type="checkbox" name="population"><label for="some">Peu abondante</label>
+        <input type="checkbox" name="population"><label for="many">Abondante</label>
         <p>Mode de vie</p>
         <input type="checkbox" name="lifestyle"><label for="a">A</label>
         <input type="checkbox" name="lifestyle"><label for="b">B</label>
         <input type="checkbox" name="lifestyle"><label for="c">C</label>
         <p>Envergure</p>
-        <input type="radio" name="size"><label for="small">Petit</label>
-        <input type="radio" name="size"><label for="average">Moyen</label>
-        <input type="radio" name="size"><label for="big">Grand</label>
+        <input type="checkbox" name="size"><label for="small">Petit</label>
+        <input type="checkbox" name="size"><label for="average">Moyen</label>
+        <input type="checkbox" name="size"><label for="big">Grand</label>
+        <input type="checkbox" name="size"><label for="huge">Gigantesque</label>
     </div>
 
     
     <div id="bestList">
-        <img src="https://static.zerochan.net/Cross-Over.full.2362479.jpg" class="imgBestList">
-        <img src="https://static.zerochan.net/Bloodborne.full.2520002.jpg" class="imgBestList">
-        <img src="https://static.zerochan.net/Bloodborne.full.2615668.png" class="imgBestList">
-        <img src="https://static.zerochan.net/Bloodborne.full.2615668.png" class="imgBestList">
-        <img src="https://static.zerochan.net/Bloodborne.full.2615668.png" class="imgBestList">
-        <img src="https://static.zerochan.net/Bloodborne.full.2615668.png" class="imgBestList">
-        <img src="https://static.zerochan.net/Bloodborne.full.2615668.png" class="imgBestList">
-        <img src="https://static.zerochan.net/Bloodborne.full.2615668.png" class="imgBestList">
-        <img src="https://static.zerochan.net/Bloodborne.full.2615668.png" class="imgBestList">
+        <div><img src="https://static.zerochan.net/Cross-Over.full.2362479.jpg"><h4>Nom</h4><p>Région</p><button>Ouvrir</button><div>Description</div></div>
+        <div><img src="https://static.zerochan.net/Bloodborne.full.2520002.jpg"><h4>Nom</h4><p>Région</p><button>Ouvrir</button><div>Description</div></div>
+        <div><img src="https://static.zerochan.net/Bloodborne.full.2615668.png"><h4>Nom</h4><p>Région</p><button>Ouvrir</button><div>Description</div></div>
+        <div><img src="https://static.zerochan.net/Bloodborne.full.2615668.png"><h4>Nom</h4><p>Région</p><button>Ouvrir</button><div>Description</div></div>
+        <div><img src="https://static.zerochan.net/Bloodborne.full.2615668.png"><h4>Nom</h4><p>Région</p><button>Ouvrir</button><div>Description</div></div>
+        <div><img src="https://static.zerochan.net/Bloodborne.full.2615668.png"><h4>Nom</h4><p>Région</p><button>Ouvrir</button><div>Description</div></div>
+        <div><img src="https://static.zerochan.net/Bloodborne.full.2615668.png"><h4>Nom</h4><p>Région</p><button>Ouvrir</button><div>Description</div></div>
+        <div><img src="https://static.zerochan.net/Bloodborne.full.2615668.png"><h4>Nom</h4><p>Région</p><button>Ouvrir</button><div>Description</div></div>
+        <div><img src="https://static.zerochan.net/Bloodborne.full.2615668.png"><h4>Nom</h4><p>Région</p><button>Ouvrir</button><div>Description</div></div>
     </div>
 
 
