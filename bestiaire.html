@@ -8,26 +8,70 @@
 
 
     <style>
-        body {
-            background: linear-gradient(to right, #71AC98, #8DD5A9);
-            border: white solid 1px;
-        }
+        :root { /* variables de couleur */ 
+      --white:#ffffff;
+      --grey1:#fafafa;
+      --grey2:#efefef;
+      --grey3:#303030;
+      --grey4:#101010;
+      --black:#000000;
+      /* les tons de vert : du plus clair au plus foncé */
+      --main1:#F4FFF3;
+      --main2:#E1F5E0;
+      --main3:#CDEACD;
+      --main4:#ADE0BB;
+      --main5:#8DD5A9;
+      --main6:#71AC98;
+      --main7:#548387;
+      --main8:#375B64;
+      --main9:#193240;
+      --main10:#0E222E;
+      /* les tons oranges : du plus clair au plus foncé */
+      --second1:#F8EED8;
+      --second2:#FBDCBD;
+      --second3:#F5C2AA;
+      --second4:#EFA796;
+      --second5:#EA8E85;
+      --second6:#E47474;
+      
+      /* polices */ 
+      --sans:"roboto",sans-serif;
+      --big:"dazzle-unicase",sans-serif;
+        
+    *,*::before,*::after {box-sizing: border-box;font-size:1em;transition:all .5s;scroll-behavior: smooth !important;}
+    html{margin:0;font-size:62.5%;font-weight: 400;}
+    body{height:100vh;font-family: var(--sans);background-color: var(--main4);color:var(--black);margin:0;}
+    body#darkmode{background-color:var(--main10);color:var(--white);}
+    a{text-decoration:none!important;color:var(--main6);}a:hover{text-decoration:none!important;color:var(--second5);}
 
-        nav {
-            border: green solid 1px;
-        }
+        
+/* partie du haut de page */
+        .top-line>div{top:0;right:0;z-index:100;position:fixed;}
+        .top-line>div:first-child{background-color:var(--main3); width:150vw; height:8em;transform:rotate(-1deg);margin-top: -7em;}
+        .top-line>div:nth-child(2){background-color:var(--main1); width:100vw; height:10em;transform:rotate(-4deg) translateX(-3em);margin-top: -11.5em;}
+        .top-line:hover>div:first-child{margin-top: -6em;}.top-line:hover>div:nth-child(2){margin-top:-11em;}
+        #darkmode .top-line>div:first-child{background-color:var(--main9);} #darkmode .top-line>div:nth-child(2){background-color:var(--main10);}
+        
+        .back{z-index:100;position:fixed;top:.5em;left:2em;text-align:right;color:var(--main6);font-family:var(--big);display:block;margin-bottom: -.4em;} .top-line:hover .back{left:1em;}
+        
+        .top-bot{z-index:101;position:fixed; top:9em; left:2.5em;display: flex;flex-direction: column;grid-gap: .5em;}
+        .top-bot>a{color:var(--white);font-size:2em;} #darkmode .top-bot>a{color:var(--main7);}
+        .top-bot>a:first-child:hover{margin:-.3em 0em .3em 0em;}.top-bot>a:last-child:hover{margin:.3em 0em -.3em 0em;}
+        
+        #toggleDarkMode{position:fixed;left:1em;top:2em;background-color:var(--main8);color:var(--main4);height:1.5em;width:1.5em;font-size:2em;display:flex;justify-content:center;align-items:center;transform:rotate(45deg);}
+        #darkmode #toggleDarkMode{background-color:var(--main6);transform:rotate(405deg);color:var(--main10);}
+        #toggleDarkMode>i:last-child{display:none;}#toggleDarkMode>i:first-child{display:block;}#darkmode #toggleDarkMode>i:first-child{display:none;}#darkmode #toggleDarkMode>i:last-child{display:block;}
+
 
         h1 {
             text-align: center;
             font-size: 64px;
-            font-family: dazzle-unicase;
         }
 
         #navFilter {
-            top: 50px;
             position: fixed;
             float: left;
-            top: 10%;
+            top: 15%;
             left: -440px;
             width: 500px;
             height: 400px;
@@ -36,6 +80,8 @@
             background-color: #548387;
             border: #375B64 solid 2px;
             border-radius: 5px;
+            padding-left: 10px;
+            padding-top: 10px;
         }
 
         .navVisible {
@@ -44,7 +90,6 @@
 
         #filterButton {
             float: right;
-            border: red solid 1px;
             height: 50px;
             width: 50px;
         }
@@ -110,13 +155,6 @@
         }
 
         #bestList > div > div {
-            height: 70%;
-            width: 70%;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%,-50%);
-            background-color: #375B64;
             opacity: 0;
             z-index: -2;
         }
@@ -126,7 +164,9 @@
 
 </head>
 <body>
-    <nav><p>Navbar de Patpat</p></nav>
+    <nav><div class="top-line" id="top"> <div></div><div></div> <a href="https://syrvael.forumactif.com/" class="back"><i class="fa-solid fa-backward"></i> Retour au forum</a> </div>
+        <div id="toggleDarkMode"> <i class="fa-solid fa-sun"></i> <i class="fa-solid fa-moon"></i></div>
+        <div class="top-bot"> <a href="#top"><i class="fa-solid fa-angles-up"></i></a> <a href="#bottom"><i class="fa-solid fa-angles-down"></i></a></div> </nav>
 
     <h1>Bestiaire</h1>
     <div id="navFilter">
@@ -172,14 +212,50 @@
 
 
 
-
+    <div id="bottom"></div>
 <script>
+        document.getElementById('toggleDarkMode').addEventListener('click', toggleDarkMode);
+        function enableDarkMode() {document.body.id = "darkmode";localStorage.setItem('darkModeEnabled', 'true');}
+        function disableDarkMode() {document.body.id = "lightmode";localStorage.setItem('darkModeEnabled', 'false');}
+        function toggleDarkMode() {if (localStorage.getItem('darkModeEnabled') === 'true') {disableDarkMode();} else {enableDarkMode();}}
+        window.onload = function() {if (localStorage.getItem('darkModeEnabled') === 'true') { enableDarkMode();}}
+        
+        
         const openFilter = document.getElementById("navFilter");
 
-    function navOpen(){
+        function navOpen(){
         openFilter.classList.toggle("navVisible");
         }
         
+         const buttons = document.querySelectorAll('#bestList button');
+         buttons.forEach(button => {
+           button.addEventListener('click', () => {
+             const description = button.parentNode.querySelector('div:last-child');
+             const popup = document.createElement('div');
+             popup.style.position = 'fixed';
+             popup.style.top = '50%';
+             popup.style.left = '50%';
+             popup.style.transform = 'translate(-50%, -50%)';
+             popup.style.background = 'white';
+             popup.style.padding = '20px';
+             popup.style.border = '1px solid black';
+             popup.style.borderRadius = '10px';
+             popup.style.width = '50%';
+             popup.style.height = '50%';
+             popup.style.overflow = 'auto';
+             popup.innerHTML = description.innerHTML;
+       
+             // Add a click event listener to the document body
+             document.body.appendChild(popup);
+             document.body.addEventListener('click', (e) => {
+               // Check if the click is outside the popup
+               if (popup.contains(e.target)) {
+               } else {
+                popup.remove();
+               }
+             });
+           });
+         });
 </script>
 </body>
 </html>
