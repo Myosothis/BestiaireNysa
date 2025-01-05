@@ -74,35 +74,35 @@
             top: 15%;
             left: -440px;
             width: 500px;
-            height: 400px;
+            height: 500px;
             z-index: 1;
             transition: 0.5s;
-            background-color: #548387;
-            border: #375B64 solid 2px;
+            background-color: var(--main7);
+            border: var(--main8) solid 2px;
             border-radius: 5px;
             padding-left: 10px;
             padding-top: 10px;
+            text-align: center;
         }
 
         .navVisible {
             transform: translate(450px, 0);
         }
 
-        #filterButton {
+        #navFilter > span {
             float: right;
-            height: 50px;
+            height: 500px;
             width: 50px;
         }
 
         #bestList {
-            background-color: #444;
+            background-color: var(--main9);
             margin: 10% auto;
             width: 80%;
             padding-top: 5px;
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            border: blue solid 1px;
         }
 
         #bestList > div {
@@ -134,13 +134,13 @@
         #bestList > div > button {
             margin-top: 30px;
             padding: 5px 10px;
-            background-color: #548387;
-            border: 1px solid #375B64;
+            background-color: var(--main7);
+            border: 1px solid var(--main8);
             border-radius: 10px;
         }
 
         #bestList > div > button:hover {
-            background-color: #375B64;
+            background-color: var(--main8);
         }
         
         #bestList > div:hover > h4, 
@@ -158,6 +158,18 @@
             opacity: 0;
             z-index: -2;
         }
+
+        #navFilter > button {
+            padding: 5px 10px;
+            background-color: var(--main7);
+            border: 1px solid var(--main8);
+            border-radius: 10px;
+            margin-bottom: 5px;
+        }
+
+        #navFilter > button:hover {
+            background-color: var(--main8);
+        }
     </style>
 
 
@@ -170,31 +182,32 @@
 
     <h1>Bestiaire</h1>
     <div id="navFilter">
-        <span onclick="navOpen()" id="filterButton">Filtrer</span>
+        <span onclick="navOpen()">Filtrer</span>
         <p>Territoire</p>
-        <input type="checkbox" name="territoire"><label for="necrolimbe">Nécrolimbe</label>
-        <input type="checkbox" name="territoire"><label for="liurna">Liurna</label>
-        <input type="checkbox" name="territoire"><label for="caelid">Caelid</label>
-        <input type="checkbox" name="territoire"><label for="atlus">Atlus</label>
-        <input type="checkbox" name="territoire"><label for="farumAzula">Farum Azula</label>
+        <button id="snrm" onclick="AAAA()">Snærhrímr</button>
+        <button id="hvrn">Havrenoir</button>
+        <button id="arvn">Arvanhaar</button><br>
+        <button id="smst">Silmëstel</button>
+        <button id="alst">Alastée</button>
+        <button id="mwai">Mo'owai</button>
         <p>Dangerosité</p>
-        <input type="checkbox" name="dangerosité"><label for="veryLow">Victime</label>
-        <input type="checkbox" name="dangerosité"><label for="low">Peu agressif</label>
-        <input type="checkbox" name="dangerosité"><label for="med">Agressif</label>
-        <input type="checkbox" name="dangerosité"><label for="high">Mortel</label>
+        <button id="vLow">Inoffensif</button>
+        <button id="low">Peu agressif</button>
+        <button id="med">Agressif</button>
+        <button id="hgh">Mortel</button>
         <p>Population</p>
-        <input type="checkbox" name="population"><label for="extinct">Éteinte</label>
-        <input type="checkbox" name="population"><label for="some">Peu abondante</label>
-        <input type="checkbox" name="population"><label for="many">Abondante</label>
+        <button id="ext">Éteinte</button>
+        <button id="som">Peu abondante</button>
+        <button id="mny">Abondante</button>
         <p>Mode de vie</p>
-        <input type="checkbox" name="lifestyle"><label for="a">A</label>
-        <input type="checkbox" name="lifestyle"><label for="b">B</label>
-        <input type="checkbox" name="lifestyle"><label for="c">C</label>
+        <button id="a">A</button>
+        <button id="b">B</button>
+        <button id="c">C</button>
         <p>Envergure</p>
-        <input type="checkbox" name="size"><label for="small">Petit</label>
-        <input type="checkbox" name="size"><label for="average">Moyen</label>
-        <input type="checkbox" name="size"><label for="big">Grand</label>
-        <input type="checkbox" name="size"><label for="huge">Gigantesque</label>
+        <button id="sml">Petit</button>
+        <button id="avr">Moyen</button>
+        <button id="big">Grand</button>
+        <button id="hge">Gigantesque</button>
     </div>
 
     
@@ -222,40 +235,23 @@
         
         
         const openFilter = document.getElementById("navFilter");
+        const filterButtons = document.querySelectorAll("navFilter>buttons") /*-------------------Ne fonctionne pas comme prévu, 
+        ------------------------------------------------------------------------------------------ne doit sélectionner que les boutons dans navFilter.*/
 
         function navOpen(){
         openFilter.classList.toggle("navVisible");
         }
-        
-         const buttons = document.querySelectorAll('#bestList button');
-         buttons.forEach(button => {
-           button.addEventListener('click', () => {
-             const description = button.parentNode.querySelector('div:last-child');
-             const popup = document.createElement('div');
-             popup.style.position = 'fixed';
-             popup.style.top = '50%';
-             popup.style.left = '50%';
-             popup.style.transform = 'translate(-50%, -50%)';
-             popup.style.background = 'white';
-             popup.style.padding = '20px';
-             popup.style.border = '1px solid black';
-             popup.style.borderRadius = '10px';
-             popup.style.width = '50%';
-             popup.style.height = '50%';
-             popup.style.overflow = 'auto';
-             popup.innerHTML = description.innerHTML;
-       
-             // Add a click event listener to the document body
-             document.body.appendChild(popup);
-             document.body.addEventListener('click', (e) => {
-               // Check if the click is outside the popup
-               if (popup.contains(e.target)) {
-               } else {
-                popup.remove();
-               }
-             });
-           });
-         });
+
+        function AAAA () {
+            console.log("AAAA")
+            console.log(openFilter)
+            console.log(filterButtons)
+            for (buttons of openFilter) {
+                console.log("for loop") /*Appliquer une classe dynamiquement pour poser les filtres*/
+            }
+        }
+
+
 </script>
 </body>
 </html>
