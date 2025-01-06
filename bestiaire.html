@@ -109,7 +109,8 @@
             width: 19%;
             height: 250px;
             margin: 0 2px 4px 2px;
-            border: violet solid 1px;
+            border: black solid 1px;
+            border-radius: 5px;
             text-align: center;
         }
 
@@ -170,6 +171,11 @@
         #navFilter > button:hover {
             background-color: var(--main8);
         }
+
+        .selected {
+            border: var(--main5) 1px solid !important;
+            background-color: var(--main4) !important; 
+        }
     </style>
 
 
@@ -184,7 +190,7 @@
     <div id="navFilter">
         <span onclick="navOpen()">Filtrer</span>
         <p>Territoire</p>
-        <button id="snrm" onclick="AAAA()">Snærhrímr</button>
+        <button id="snrm">Snærhrímr</button>
         <button id="hvrn">Havrenoir</button>
         <button id="arvn">Arvanhaar</button><br>
         <button id="smst">Silmëstel</button>
@@ -235,22 +241,29 @@
         
         
         const openFilter = document.getElementById("navFilter");
-        const filterButtons = document.querySelectorAll("navFilter>buttons") /*-------------------Ne fonctionne pas comme prévu, 
-        ------------------------------------------------------------------------------------------ne doit sélectionner que les boutons dans navFilter.*/
+        const filterButtons = openFilter.getElementsByTagName("button");
 
         function navOpen(){
         openFilter.classList.toggle("navVisible");
         }
 
-        function AAAA () {
-            console.log("AAAA")
-            console.log(openFilter)
-            console.log(filterButtons)
-            for (buttons of openFilter) {
-                console.log("for loop") /*Appliquer une classe dynamiquement pour poser les filtres*/
+        for (button of filterButtons) {
+                button.onclick = (function toggleSelectedClass(){
+                    this.classList.toggle("selected");
+                    console.log(this.id)
+                    console.log(this.classList)
+                    })
             }
-        }
 
+        const bestList = document.getElementById("bestList");
+        const bestEntry = bestList.getElementsByTagName("div");
+
+        for (div of bestEntry) {
+            console.log('BBB')
+            console.log(div)/* --------- Sélectionne également les div "Description", à trouver : comment faire en sorte de masquer correctement les div ?
+            ---------------------------- Changer les div Description en span/p ? Si oui, changer également les régions.
+            ---------------------------- Masquer/Afficher les div deux par deux ? Vérifier d'éventuels conflits. */
+            } 
 
 </script>
 </body>
